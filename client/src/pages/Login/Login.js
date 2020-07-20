@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { loginUserWithEmail } from '../../store/actions/authActions';
-import { FACEBOOK_AUTH_LINK, GOOGLE_AUTH_LINK } from '../../constants';
+// import { FACEBOOK_AUTH_LINK, GOOGLE_AUTH_LINK } from '../../constants';
 import { loginSchema } from './validation';
 import './styles.css';
 
@@ -38,13 +38,14 @@ const Login = ({ auth, history, loginUserWithEmail }) => {
         </p>
         <form onSubmit={formik.handleSubmit}>
           <h2>Log in with social media</h2>
-          <a className="fb btn" href={FACEBOOK_AUTH_LINK}>
-            <i className="fa fa-facebook fa-fw" /> Login with Facebook
-          </a>
-          <a className="google btn" href={GOOGLE_AUTH_LINK}>
-            <i className="fa fa-google fa-fw" />
-            Login with Google
-          </a>
+          {// <a className="fb btn" href={FACEBOOK_AUTH_LINK}>
+            //   <i className="fa fa-facebook fa-fw" /> Login with Facebook
+            // </a>
+            // <a className="google btn" href={GOOGLE_AUTH_LINK}>
+            //   <i className="fa fa-google fa-fw" />
+            //   Login with Google
+            // </a>
+          }
           <h2>Login with email address</h2>
           <p className="logins">Admin: email0@email.com 123456789</p>
           <p className="logins">User: email1@email.com 123456789</p>

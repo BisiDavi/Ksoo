@@ -65,8 +65,8 @@ userSchema.methods.toJSON = function () {
   const avatar = isValidUrl(this.avatar)
     ? this.avatar
     : fs.existsSync(absoluteAvatarFilePath)
-    ? `${process.env.IMAGES_FOLDER_PATH}${this.avatar}`
-    : `${process.env.IMAGES_FOLDER_PATH}avatar2.jpg`;
+      ? `${process.env.IMAGES_FOLDER_PATH}${this.avatar}`
+      : `${process.env.IMAGES_FOLDER_PATH}avatar2.jpg`;
 
   return {
     id: this._id,

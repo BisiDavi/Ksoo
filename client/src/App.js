@@ -1,18 +1,15 @@
+
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import Home from './pages/Home/Home';
-import Profile from './pages/Profile/Profile';
-import Users from './pages/Users/Users';
-import Admin from './pages/Admin/Admin';
-import NotFound from './pages/NotFound/NotFound';
-
-import Loader from './components/Loader/Loader';
+import {
+  MainLogin, MainSignup, Signup1, Loader, ForgetPassword, OperationsOverview, Mobile,
+  ImportClearance1, ImportClearance2, Transport, Finance, Operations, Marine,
+  Admin, HomeOverview, ImportClearance3, CustomClearance, Profile, NotFound
+} from './import/.'
 
 import { logInUserWithOauth, loadMe } from './store/actions/authActions';
 
@@ -42,18 +39,29 @@ const App = ({ logInUserWithOauth, auth, loadMe }) => {
     <>
       {auth.appLoaded ? (
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/users" component={Users} />
           <Route path="/notfound" component={NotFound} />
+          <Route path="/dashboard" component={HomeOverview} />          
+          <Route path="/login" component={MainLogin} />
+          <Route path="/forget-password" component={ForgetPassword} />
+          <Route path="/dashboard" component={HomeOverview} />
+          <Route path="/mobile" component={Mobile} />
+          <Route path="/transport" component={Transport} />
+          <Route path="/finance" component={Finance} />
+          <Route path="/operations" component={Operations} />
+          <Route path="/marine" component={Marine} />
           <Route path="/admin" component={Admin} />
+          <Route path="/operations-overview" component={OperationsOverview} />
+          <Route path="/import-custom-clearance" component={ImportClearance1} />
+          <Route path="/import-custom-clearance-2" component={ImportClearance2} />
+          <Route path="/import-custom-clearance-3" component={ImportClearance3} />
+          <Route path="/file-saved" component={CustomClearance} />
           <Route exact path="/:username" component={Profile} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={MainSignup} />
           <Route component={NotFound} />
         </Switch>
       ) : (
-        <Loader />
-      )}
+          <Loader />
+        )}
     </>
   );
 };
