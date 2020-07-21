@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const useStyle = makeStyles({
   root: {
     height: '120px',
-    width: '280px'
+    width: '380px'
   },
   cardcontent: {
     padding: '20px'

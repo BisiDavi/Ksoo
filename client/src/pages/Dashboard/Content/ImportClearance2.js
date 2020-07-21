@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Layout, InputGroup, FileButton,
-  LinkButton, Datepicker,
+  Layout, InputGroup, FileButton, Datepicker,
 } from '../../../import';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import {
@@ -55,7 +54,7 @@ const useStyle = makeStyles({
     '& a': {
       margin: '0px 30px',
       '& button': {
-        width:'120px'
+        width: '120px'
       }
     }
 
@@ -180,7 +179,7 @@ const ImportClearance2 = () => {
               <Typography variant="h6">Shipper</Typography>
             </Grid>
             <Grid item>
-              <InputGroup className={classes.inputform} label="Enter name of Shipper" />
+              <InputGroup type="text" className={classes.inputform} label="Enter name of Shipper" />
             </Grid>
           </Grid>
           <Grid container>
@@ -188,7 +187,7 @@ const ImportClearance2 = () => {
               <Typography variant="h6">Consignee</Typography>
             </Grid>
             <Grid item>
-              <InputGroup className={classes.inputform} label="Enter name of Consignee" />
+              <InputGroup type="text" className={classes.inputform} label="Enter name of Consignee" />
             </Grid>
           </Grid>
           <Grid container alignItems="flex-start" className={classes.inputGroup}>
@@ -196,7 +195,7 @@ const ImportClearance2 = () => {
               <Typography variant="h6">Form M.Number</Typography>
             </Grid>
             <Grid item>
-              <InputGroup className={classes.inputform} label="Enter Form M.Number" />
+              <InputGroup type="number" className={classes.inputform} label="Enter Form M.Number" />
             </Grid>
           </Grid>
           <Grid container>
@@ -204,7 +203,7 @@ const ImportClearance2 = () => {
               <Typography variant="h6">Cargo Description</Typography>
             </Grid>
             <Grid item>
-              <InputGroup className={classes.inputform} label="Enter Cargo Description" />
+              <InputGroup type="text" className={classes.inputform} label="Enter Cargo Description" />
             </Grid>
           </Grid>
           <Grid container alignItems="flex-start" className={classes.client}>
@@ -220,7 +219,7 @@ const ImportClearance2 = () => {
               <Typography variant="h6">Cargo Destination</Typography>
             </Grid>
             <Grid item>
-              <InputGroup className={classes.inputform} label="Cargo Destination" />
+              <InputGroup type="text" className={classes.inputform} label="Cargo Destination" />
             </Grid>
           </Grid>
           <Grid container alignItems="flex-start" className={classes.radioButtonGroup}>
@@ -272,7 +271,7 @@ const ImportClearance2 = () => {
 
           <Grid container className={classes.buttonGroup}>
             <Grid item>
-              <Link to="/import-custom-clearance-2">
+              <Link to="/import-custom-clearance">
                 <Button variant="contained" color="secondary">Previous</Button>
               </Link>
               <Link to="/import-custom-clearance-3">

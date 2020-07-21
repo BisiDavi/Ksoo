@@ -5,9 +5,9 @@
   "main": "server/src/index.js",
   "type": "module",
   "scripts": {
-    "start": "npm run start-prod --prefix server",
+    "start": "cd ../server && yarn run start-prod ",
     "start-dev": "node --experimental-modules babel-node server/src/index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix server && npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "yarn install cd ../server && yarn install cd ../client && yarn run build cd ../client"
   },
   "author": "Nemanja Mitic (https://github.com/nemanjam)",
   "license": "MIT",

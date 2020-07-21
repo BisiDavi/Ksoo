@@ -40,7 +40,7 @@ const App = ({ logInUserWithOauth, auth, loadMe }) => {
       {auth.appLoaded ? (
         <Switch>
           <Route path="/notfound" component={NotFound} />
-          <Route path="/dashboard" component={HomeOverview} />          
+          <Route path="/dashboard" component={HomeOverview} />
           <Route path="/login" component={MainLogin} />
           <Route path="/forget-password" component={ForgetPassword} />
           <Route path="/dashboard" component={HomeOverview} />
@@ -55,6 +55,7 @@ const App = ({ logInUserWithOauth, auth, loadMe }) => {
           <Route path="/import-custom-clearance-2" component={ImportClearance2} />
           <Route path="/import-custom-clearance-3" component={ImportClearance3} />
           <Route path="/file-saved" component={CustomClearance} />
+          <Route path="/loader" component={Loader} />
           <Route exact path="/:username" component={Profile} />
           <Route exact path="/" component={MainSignup} />
           <Route component={NotFound} />

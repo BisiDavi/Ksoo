@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import SearchIcon from '@material-ui/icons/Search'
 import { ListItems } from './Sidebar';
-
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -24,6 +24,13 @@ const drawerWidth = 240;
 
 
 const useStyles = makeStyles((theme) => ({
+  logout: {
+    color: 'white',
+    marginTop: '-35px',
+    float: 'right',
+    fontWeight: 'bolder',
+    marginLeft: '100px',
+  },
   root: {
     display: 'flex',
   },
@@ -230,7 +237,7 @@ const Dashboard = ({ children, auth, logOutUser, history }) => {
                   <Typography className={classes.user} component="h6">
                     {auth.me.name}
                   </Typography>
-                  <Button onClick={onLogOut}>Log Out</Button>
+                  <Button className={classes.logout} onClick={onLogOut}><PowerSettingsNewIcon /></Button>
                 </Grid>
               </Grid>
             </Grid>

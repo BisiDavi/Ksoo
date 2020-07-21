@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { Layout, InputGroup, MultipleSelect } from '../../../import';
 import {
-  Grid, makeStyles, Button, Typography, Paper, FormControlLabel, FormControl, Radio, RadioGroup
+  Grid, Button, TextField, Typography, Paper, FormControlLabel, Input, InputLabel, MenuItem,
+  FormControl, Select, Chip, makeStyles, useTheme, Radio, RadioGroup
 } from '@material-ui/core';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const mode = {
@@ -37,9 +43,8 @@ const useStyle = makeStyles({
   root: {
     height: '100vh'
   },
-  client: {
-    marginRight: '80px',
-    marginTop: '25px',
+  eClient: {
+    marginRight: '180px',
     fontWeight: 'bold',
     fontSize: '18px'
   },
@@ -110,16 +115,26 @@ const useStyle = makeStyles({
   }
 });
 
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+
 const seaForm = (
   <Grid className="seaForm">
     <div style={mode} className="mode">
       <Typography style={scac} variant="h6">SCAC</Typography>
-      <InputGroup label="Enter SCAC" />
+      <InputGroup id="scac" type="text" label="Enter SCAC" />
     </div>
 
     <div style={mode} className="bill">
       <Typography style={bl} variant="h6">B/L</Typography>
-      <InputGroup label="Enter BIll of Laden" />
+      <InputGroup id="b/l" type="number" label="Enter BIll of Laden" />
     </div>
   </Grid>
 )
@@ -128,23 +143,70 @@ const airForm = (
   <Grid className="airForm">
     <div style={mode} className="mode">
       <Typography style={air} variant="h6">Airline</Typography>
-      <InputGroup style={inputLength} label="Enter Airline" />
+      <InputGroup type="text" style={inputLength} label="Enter Airline" />
     </div>
 
     <div style={mode} className="bill">
       <Typography style={bl} variant="h6">W/B</Typography>
-      <InputGroup style={inputLength} label="Enter BIll of Laden" />
+      <InputGroup type="number" style={inputLength} label="Enter BIll of Laden" />
     </div>
   </Grid>
 )
 
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [];
+
 const ImportClearance1 = () => {
+
   const classes = useStyle();
+
   const [value, setValue] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [companyCode, setCompanyCode] = useState('');
+  const [client, setClient] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const theme = useTheme();
+
+  const handleCompanyName = (event) => {
+    setCompanyName(event.target.value)
+  }
+
+  names.push(companyName)
+
+  const handleCompanyCode = (event) => {
+    setCompanyCode(event.target.value)
+    console.log(companyCode)
+  }
+
+
+  const handleClientChange = () => {
+    setClient(companyName);
+    console.log(client)
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    console.log(value)
   };
 
   const showRBState = (value === "Sea") ? seaForm : airForm
@@ -170,11 +232,37 @@ const ImportClearance1 = () => {
           <Grid container className={classes.inputGroup}>
             <Grid item className={classes.clientitem}>
               <Grid container className={classes.clientContainer}>
-                <Grid item>
-                  <Typography className={classes.client} variant="h6">Client</Typography>
+                <Grid item lg={6}>
+                  <Typography className={classes.eClient} variant="h6">Client</Typography>
                 </Grid>
-                <Grid item>
-                  <MultipleSelect />
+                <Grid item lg={6}>
+                  <div>
+                    <FormControl className={classes.formControl}>
+                      <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
+                      <Select
+                        labelId="demo-mutiple-chip-label"
+                        id="demo-mutiple-chip"
+                        multiple
+                        value={client}
+                        onChange={handleClientChange}
+                        input={<Input id="select-multiple-chip" />}
+                        renderValue={(selected) => (
+                          <div className={classes.chips}>
+                            {selected.map((value) => (
+                              <Chip key={value} label={value} className={classes.chip} />
+                            ))}
+                          </div>
+                        )}
+                        MenuProps={MenuProps}
+                      >
+                        {names.map((name) => (
+                          <MenuItem key={name} value={name} style={getStyles(name, client, theme)}>
+                            {name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -184,7 +272,47 @@ const ImportClearance1 = () => {
                   <Typography className={classes.addNewClient} variant="h6">Add New Client</Typography>
                 </Grid>
                 <Grid item>
-                  <InputGroup label="Add a new client" />
+                  <div>
+                    <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                      +
+                    </Button>
+                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                      <DialogTitle id="form-dialog-title">Add A New Client</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Add a company as a client and its company code
+                      </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          value={companyName}
+                          onChange={handleCompanyName}
+                          label="Company's name"
+                          type="text"
+                          fullWidth
+                        />
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          value={companyCode}
+                          onChange={handleCompanyCode}
+                          label="Company's code"
+                          type="text"
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                      </Button>
+                        <Button onClick={handleClose} color="primary">
+                          Add
+                      </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
                 </Grid>
               </Grid>
             </Grid>

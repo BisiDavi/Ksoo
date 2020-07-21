@@ -19,6 +19,7 @@ export default function InputTextField(props) {
         id={props.id}
         label={props.label}
         variant="outlined"
+        type={props.type}
         required
         color="secondary"
         className={props.className}
