@@ -7,7 +7,7 @@
   "scripts": {
     "start": "cd ../server && yarn run start-prod ",
     "start-dev": "node --experimental-modules babel-node server/src/index.js",
-    "heroku-postbuild": "yarn install cd ../server && yarn install cd ../client && yarn run build cd ../client"
+    "heroku-postbuild": "cd ../server && yarn install  && cd ../client yarn install &&  cd ../client yarn run build"
   },
   "author": "Nemanja Mitic (https://github.com/nemanjam)",
   "license": "MIT",
